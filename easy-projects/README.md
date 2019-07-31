@@ -6,10 +6,9 @@ If you can't sleep, just count sheep!!
 
 Task:
 
-	- Given a non-negative integer, 3 for example, return a string with a murmur: "1 sheep...2 sheep...3 sheep...". 
+- Given a non-negative integer, 3 for example, return a string with a murmur: "1 sheep...2 sheep...3 sheep...". 
 
-	
-	- Input will always be valid, i.e. no negative integers.
+- Input will always be valid, i.e. no negative integers.
 
 ## small_projects_2
 
@@ -20,3 +19,11 @@ Task:
 - Complete the square sum function so that it squares each number passed into it and then sums the results together.
 
 - For example, for [1, 2, 2] it should return 9 because 1^2 + 2^2 + 2^2 = 9.
+
+## small_projects_3
+
+Find Nearest square number
+
+Task:
+
+- Your task is to find the nearest square number, nearest_sq(n), of a positive integer n.
