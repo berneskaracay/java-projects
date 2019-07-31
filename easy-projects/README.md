@@ -27,3 +27,12 @@ Find Nearest square number
 Task:
 
 - Your task is to find the nearest square number, nearest_sq(n), of a positive integer n.
+
+## small_projects_4
+
+Reversed Words
+
+Task:
+
+- ReverseWords.reverseWords("The greatest victory is that which requires no battle");
+should return "battle no requires which that is victory greatest The"
