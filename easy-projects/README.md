@@ -87,3 +87,9 @@ As a good parent, you will sit and count with him. Given the number (n), populat
 For example, if n = 10:
 
 return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+## small_projects_8
+
+Given a non-empty array of integers, return the result of multiplying the values together in order. Example:
+
+[1, 2, 3, 4] => 1 * 2 * 3 * 4 = 24
