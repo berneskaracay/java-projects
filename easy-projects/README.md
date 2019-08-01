@@ -95,6 +95,7 @@ Given a non-empty array of integers, return the result of multiplying the values
 [1, 2, 3, 4] => 1 * 2 * 3 * 4 = 24
 
 ## small_projects_9
+
 Character recognition software is widely used to digitise printed texts. Thus the texts can be edited, searched and stored on a computer.
 
 When documents (especially pretty old ones written with a typewriter), are digitised character recognition softwares often make mistakes.
@@ -105,3 +106,21 @@ S is misinterpreted as 5
 O is misinterpreted as 0
 I is misinterpreted as 1
 The test cases contain numbers only by mistake.
+
+## small_projects_10
+
+This Kata is intended as a small challenge for my students
+
+All Star Code Challenge #18
+
+Create a function called that accepts 2 string arguments and returns an integer of the count of occurrences the 2nd argument is found in the first one.
+
+If no occurrences can be found, a count of 0 should be returned.
+
+strCount("Hello", 'o') // => 1
+strCount("Hello", 'l') // => 2
+strCount("", 'z')      // => 0
+Notes:
+
+The first argument can be an empty string
+The second string argument will always be of length 1
