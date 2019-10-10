@@ -823,3 +823,161 @@ public class MotorVehicle {
 but it leaves the number of wheels unspecified, and it doesn't have a numberDoors field since not all motor vehicles have doors.
 It also makes the fields and the setLicensePlate() method protected instead of private and public.
 */
+
+//Inheritance: The Car subclass
+public class Car extends MotorVehicle {
+
+  private int numberWheels = 4;  
+  private int numberDoors;
+  
+  
+  // constructors
+  public Car(String licensePlate, double maxSpeed,
+   String make, String model, int year, int numberOfPassengers,
+   int numberOfDoors) {
+    this(licensePlate, 0.0, maxSpeed, make, model, year, numberOfPassengers, 
+     numberOfDoors);    
+  }
+
+  public Car(String licensePlate, double speed, double maxSpeed,
+   String make, String model, int year, int numberOfPassengers) {
+    this(licensePlate, speed, maxSpeed, make, model, year, 
+     numberOfPassengers, 4);    
+  }
+
+  public Car(String licensePlate, double speed, double maxSpeed,
+   String make, String model, int year, int numberOfPassengers,
+   int numberOfDoors) {
+    super(licensePlate, speed, maxSpeed, make, model,
+     year, numberOfPassengers);
+    this.numberDoors = numberOfDoors;
+  }
+   
+  public int getNumberOfWheels() {
+    return this.numberWheels;
+  }
+ 
+  public int getNumberOfDoors() {
+    return this.numberDoors;
+  }
+    
+}
+/*It may look like these classes aren't as complete as the earlier ones, but that's incorrect.
+ Car and Motorcycle each inherit the members of their superclass, MotorVehicle. 
+ Since a MotorVehicle has a make, a model, a year, a speed, a maximum speed, a number of passengers, 
+ cars and motorcycles also have makes, models, years, speeds, maximum speeds, and numbers of passengers. 
+ They also have all the public methods the superclass has. They do not have the same constructors, 
+ though they can invoke the superclass constructor through the super keyword, much as a constructor 
+ in the same class can be invoked with the this keyword.
+ */
+
+
+//Multilevel Inheritance
+/*The Car-Motorcycle-MotorVehicle example showed single-level inheritance. 
+There's nothing to stop you from going further. You can define subclasses of cars for compacts, 
+station wagons, sports coupes and more. For example, this class defines a compact as a car with two doors:
+ */
+public class Compact extends Car {
+
+  // constructors
+  public Compact(String licensePlate, double maxSpeed,
+   String make, String model, int year, int numberOfPassengers) {
+    this(licensePlate, 0.0, maxSpeed, make, model, year, numberOfPassengers);    
+  }
+
+  public Compact(String licensePlate, double speed, double maxSpeed,
+   String make, String model, int year, int numberOfPassengers) {
+    super(licensePlate, speed, maxSpeed, make, model,
+     year, numberOfPassengers, 2);
+  }
+   
+}
+
+//Overriding Methods: The Solution
+/*The object oriented solution to this problem is to define a new class, call it SlowCar, 
+which inherits from Car and imposes the additional constraint that a car may not go faster than 70 mph (112.65 kph).
+
+To do this you'll need to adjust the two places that speed can be changed, the constructor and the accelerate() method. 
+The constructor has a different name because all constructors are named after their classes but the accelerate() 
+method must be overridden. This means the subclass has a method with the same signature as the method in the superclass.
+*/
+public class SlowCar extends Car {
+
+  private static final double speedLimit = 112.65408; // kph == 70 mph
+
+  public SlowCar(String licensePlate, double speed, double maxSpeed,
+   String make, String model, int year, int numberOfPassengers, int numDoors) {
+    
+    super(licensePlate, 0, maxSpeed, make, model, year, 
+     numberOfPassengers, numDoors);
+    this.accelerate(speed);
+    
+  }
+
+  public void accelerate(double deltaV) {
+
+     double speed = this.getSpeed() + deltaV;
+     
+     if (speed > speedLimit) {
+       super.accelerate(speedLimit - this.getSpeed());
+     }
+     else {
+       super.accelerate(deltaV);  
+     }  
+     
+  }
+   
+}
+/*
+The first thing to note about this class is what it doesn't have, getSpeed(), getLicensePlate(), getMaximumSpeed(), 
+setLicensePlate() methods or speed, maxSpeed and numDoors fields. All of these are provided by the superclass Car. 
+Nothing about them has changed so they don't need to be repeated here.
+Next look at the accelerate() method. This is different than the accelerate() method in Car. 
+It imposes the additional constraint.
+
+The constructor is a little more complicated. First note that if you're going to use a non-default constructor, 
+that is a constructor with arguments, you do need to write a constructor for the subclass,
+even if it's just going to do the exact same thing as the matching constructor in the superclass. 
+You cannot simply inherit Car's constructor because that constructor is named Car() and this one must be named SlowCar().
+
+The constructor needs to set the value of name, url, and description. 
+However they're not accessible from the subclass. Instead they are set by calling the superclass's constructor using the keyword super. 
+When super is used as a method in the first non-blank line of a constructor, it stands for the constructor of this class's superclass.
+
+The immediate superclass's constructor will be called in the first non-blank line of the subclass's constructor. 
+If you don't call it explicitly, then Java will call it for you with no arguments. 
+It's a compile time error if the immediate superclass doesn't have a constructor with no arguments and 
+you don't call a different constructor in the first line of the subclass's constructor.
+
+The use of the ternary operator in the constructor call is unusual. However, 
+it's necessary to meet the compiler's requirement that the invocation of super be the first line in the subclass constructor. 
+Otherwise this could be written more clearly using only if-else.
+*/
+
+//Subclasses and Polymorphism
+/*Car and Motorcycle are subclasses of MotorVehicle. 
+If you instantiate a Car or a Motorcycle with new, you can use that object anywhere you can use a MotorVehicle, 
+because cars are motor vehicles. Similarly you can use a Motorcycle anywhere you can use a MotorVehicle. 
+This use of a subclass object in place of a superclass object is the beginning of polymorphism. 
+I'll say more about polymorphism later.
+
+The converse is not true. Although all cars are motor vehicles, not all motor vehicles are cars.
+ Some are motorcycles. Therefore if a method expects a Car object you shouldn't give it a MotorVehicle object instead.
+*/
+
+//Class or static Members
+/* 
+A method or a field in a Java program can be declared static. 
+This means the member belongs to the class rather than to an individual object.
+
+If a variable is static, then when any object in the class changes the value of the variable,
+that value changes for all objects in the class.
+
+For example, suppose the Car class contained a speedLimit field that was set to 112 kph (70 mph). This would be the same for all cars. 
+If it changed (by act of Congress) for one car, it would have to change for all cars. This is a typical static field.
+
+Methods are often static is if they neither access nor modify any of the instance (non-static) fields of a class and 
+they do not invoke any non-static methods in the class. This is common in calculation methods like a square root 
+method that merely operate on their arguments and return a value. One way of thinking of it is that a 
+method should be static if it neither uses nor needs to use this.
+*/
