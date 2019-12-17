@@ -279,7 +279,8 @@ class CarTest6 {
 
 // Constructors
 
-/*A constructor creates a new instance of the class. It initializes all the variables and does any work necessary to prepare the class to be used. 
+/*A constructor creates a new instance of the class. It initializes all the variables and does 
+any work necessary to prepare the class to be used. 
 In the line*/
 
 Car c = new Car(); 
@@ -506,8 +507,10 @@ Methods can be overloaded as well. System.out.println() can print a double, a fl
 You don't do anything different depending on the type of number you want the value of. Overloading takes care of it.
 */
 /*
-Programmer-defined classes can overload methods as well. To do this simply write two methods with the same name but different argument lists.
- For instance last week you saw several different versions of the Car constructor, one that took three arguments and one that took two arguments, 
+Programmer-defined classes can overload methods as well. To do this simply write two methods with the same name 
+but different argument lists.
+ For instance last week you saw several different versions of the Car constructor, one that took three arguments 
+ and one that took two arguments, 
  and one that took no arguments. 
 You can use all of these in a single class, 
 though here I only use two because there really aren't any good default values for licensePlate and maxSpeed. 
@@ -599,7 +602,7 @@ Inheritance takes advantage of the overlap.
 
 public class MotorVehicle {
 
-  private String licensePlate;      // e.g. "New York A456 324"
+  protected String licensePlate;      // e.g. "New York A456 324"
   private double speed;             // kilometers per hour
   private double maxSpeed;          // kilometers per hour
   private String make;              // e.g. "Harley-Davidson", "Ford"
@@ -973,7 +976,8 @@ This means the member belongs to the class rather than to an individual object.
 If a variable is static, then when any object in the class changes the value of the variable,
 that value changes for all objects in the class.
 
-For example, suppose the Car class contained a speedLimit field that was set to 112 kph (70 mph). This would be the same for all cars. 
+For example, suppose the Car class contained a speedLimit field that was set to 112 kph (70 mph). 
+This would be the same for all cars. 
 If it changed (by act of Congress) for one car, it would have to change for all cars. This is a typical static field.
 
 Methods are often static is if they neither access nor modify any of the instance (non-static) fields of a class and 
@@ -981,3 +985,320 @@ they do not invoke any non-static methods in the class. This is common in calcul
 method that merely operate on their arguments and return a value. One way of thinking of it is that a 
 method should be static if it neither uses nor needs to use this.
 */
+
+
+
+//Udemy class notes
+public static void main(String [] args){
+   // Start my program here
+}
+
+/*
+Let's break it down:
+
+public: Means you can run this method from anywhere in your Java program (we will talk more about public and
+private methods later
+static: Means it doesn't need an object to run, which is why the computer starts with this method before even 
+creating any objects (we will also talk more about static methods later on)
+void: Means the main method doesn't return anything, it just runs when the program starts, and once 
+it's done the program terminates
+main: Is the name of the method
+String [] args : Is the input parameter (array of strings) which we will cover how to use it later 
+in this lesson as well!
+This main method is the starting point for any Java program, when a computer runs a Java program, 
+it looks for that main method and runs it.
+
+Inside it you can create objects and call methods to run other parts of your code. And then when
+ the main method ends the program terminates.
+
+If this main method doesn't exist, or if there's more than one, the Java program won't be able to run at all!
+
+The main method can belong to any class, or you can create a specific class just for 
+that main method which is what most people do.
+*/
+
+/*Constructors
+Constructors are special types of methods that are responsible for creating and initializing an object of that class.
+
+Creating a constructor
+Creating a constructor is very much like creating a method, except that:
+
+Constructors don't have any return types
+Constructors have the same name as the class itself
+They can however take input parameters like a normal method, and you are allowed to create multiple 
+constructors with different input parameters.
+
+Here's an example of a simple constructor for a class called Game*/
+
+class Game{
+   int score;
+   // Default constructor
+   Game(){
+      score = 0;
+   }
+   // Constructor by starting score value
+   Game(int startingScore){
+      score = startingScore;
+   }
+}
+
+/*Accessing a constructor
+Unlike normal methods, constructors cannot be called using the 
+dot . modifier, instead, every time you create an object variable of a class 
+type the appropriate constructor is called. Let's see how:
+
+The new keyword
+To create an object of a certain class, you will need to use the new keyword 
+followed by the constructor you want to use, for example:*/
+
+Game tetris = new Game();
+
+/*This will create an object called tetris using the default constructor (i.e. tetris will have an initial score value of 0)
+
+To create a game that is initialized with a different starting score you can use the second constructor:*/
+
+Game darts = new Game(501);
+
+//Methods (public vs private)
+
+class Person{
+   private String userName;
+   private String SSN;
+   private String getId(){
+      return SSN + "-" + userName;
+   }
+   public String getUserName(){
+      return userName;
+   }
+   public boolean isSamePerson(Person p){
+      if(p.getId().equals(this.getId()){
+         return true;
+      }
+      else{
+         return false;
+      } 
+   }
+}
+
+/* 
+The class Person has both its fields set to private because if 
+they were public then any other class will be able to change such sensitive information. 
+Setting them to private means that only methods and constructors inside this class can do so!
+The method getId() was also set to private so that no other class can know the social security number of any person.
+However, we were still able to use that method internally when comparing this person with 
+another person object in the isSamePerson(Person p) method.
+This means that any other class can only call getUserName or isSamePerson and will seem as 
+if these are the only 2 methods provided by the class Person*/
+
+
+//Polymorphism
+/*You are given a class Book that has the fields title and numberOfPages, 
+as well as 2 more classes Novel and TextBook that extend class Book:
+
+QUIZ QUESTION
+Which of the following statements is/are correct? (There could be more than 1 correct answer)
+
+Book someBook = new Book();
+Book someBook = new Novel();
+Novel someNovel=new Book();
+Novel someBook = new TextBook();
+A and B
+You are allowed to use the parent's data type when declaring a child variable. 
+But to use the parent's constructor you will need to cast the variable before assigning it to the child's data type.
+When using the parent's constructor you will need to cast the variable before assigning it to the child's data type.
+
+You cannot declare a variable of a type and initialize it to a different type even if they share the same parent!
+*/
+
+//Override
+/*
+When a class extends another class, all public methods declared in that parent class are automatically included 
+in the child class without you doing anything.
+
+However, you are allowed to override any of those methods. Overriding basically means re-declaring them in the 
+child class and then re-defining what they should do.
+
+Going back to our chess example, assume you're implementing the isValidMove method in the Rock class.
+
+The Rock class extends the Piece class that already includes a definition of the isValidMove method.
+*/
+class Piece{
+   boolean isValidMove(Position newPosition){
+      if(newPosition.row>0 && newPosition.column>0 
+         && newPosition.row<8 && newPosition.column<8){
+         return true;
+      }
+      else{
+         return false;
+      }
+   }
+}
+//Now let's implement a custom version of that method inside the Rock class:
+
+class Rock extends Piece{
+   boolean isValidMove(Position newPosition){
+      if(newPosition.column == this.column || newPosition.row == this.row){
+         return true;
+      }
+      else{
+         return false;
+      }
+   }
+}
+
+//super
+
+/*
+It is important to note that once you override a method, you basically ignore everything that 
+was in the parent class and instead have your own custom implementation in the child class (literally overwriting it)!
+In our case, we don't want to throw away the parent implementation. 
+We actually want to continue to use the original method, 
+and ADD the extra checks for each child class individually.
+This is where we get to use the "super" keyword!
+You are allowed to re-use the parent method in the child class by using the "super" keyword, 
+followed by a dot and then the method name:
+*/
+super.isValidMove(position);
+/*
+Using the keyword super here means that we want to run the actual method in the super (or parent) 
+class from inside the implementation in "this" class.
+
+Which means in each of the child classes, before you get to check the custom movement, 
+you can check if super.isValidMove(position) has returned false. 
+If so, then no need to do any more checks and immediately return false; otherwise,
+ continue checking.
+
+The new implementation for the Rock class will look like this:
+*/
+
+class Rock extends Piece{
+   boolean isValidMove(Position newPosition){
+      // First call the parent's method to check for the board bounds
+      if(!super.isValidMove(position)){
+         return false;
+      }
+      // If we passed the first test then check for the specific rock movement
+      if(newPosition.column == this.column && newPosition.row == this.row){
+         return true;
+      }
+      else{
+         return false;
+      }
+   }
+}
+
+/*
+You can also use super() to call the parent's constructor. This is usually done when implementing the child's constructor. 
+Typically you would want to first run everything in the parent's constructor then add more code in the child's constructor:
+*/
+
+class Rock extends Piece{
+   // default constructor
+   public Rock(){
+      super(); // this will call the parent's constructor
+      this.name = "rock";
+   }
+}
+
+/*
+Note: If a child's constructor does not explicitly call the parent's constructor using super, 
+the Java compiler automatically inserts a call to the default constructor of the parent class.
+ If the parent class does not have a default constructor, you will get a compile-time error.
+*/
+
+ // Final Methods
+
+/*Being able to override any method could be dangerous. If someone creates a class with a certain method, 
+they assume this method behaves in a certain way.
+
+That's why, if you want to protect your method from being overridden in a child class you can prefix 
+it with the keyword final.
+
+A final method can still be accessed by the child class (if the permissions allow so) but cannot be overridden, 
+hence you can guarantee that any final method will behave exactly like the parent's implementation.
+
+Here's an example:
+*/
+public class Room{
+   private double width;
+   private double height;
+   public Room(double width, double height){
+      this.width = width;
+      this.height =height;
+   }
+   public final double getArea(){
+      return width*height;
+   }
+}
+/*Now if another class extends Room, no matter what type of room it is it shouldn't be allowed to override 
+the method getArea because the area should always be calculated the same way:
+*/
+public class LivingRoom extends Room{
+   // The constructor simply calls the parent's constructor using super()
+   public LivingRoom(double width, double height){
+        super(width,height);
+    }
+   // Not allowed to override getArea() here
+}
+//But since the method is public, it means that it's also available in the child class:
+
+LivingRoom myLivingRoom = new LivingRoom(5,3);
+double area = myLivingRoom.getArea();
+System.out.println(area);
+//The above code will work just fine, and the output will be 15.0 as expected!
+
+/*The final keyword can also be used to describe fields. However, unlike with methods, a final field has 
+nothing to do with inheritance!*/
+
+/*A final field is simply a constant variable! In other words, a variable that is only to be set once and 
+is not allowed to change ever again!
+
+A good example of a final field is defining math constants, like PI:
+*/
+public class MathLib{
+   public final double PI = 3.14;
+}
+/*This basically means that even though the field is public, you are not allowed to change the value of 
+PI anywhere (inside or outside of this class).
+*/
+public static void main(String [] args){
+   MathLib mathlib = new MathLib();
+   mathlib.PI = 0; // This is not allowed and will show a compiler error!
+}
+
+//Static Methods
+/*
+Just like static fields, static methods also belong to the class rather than the object.
+
+It's ideally used to create a method that doesn't need to access any fields in the object, in other words,
+ a method that is a standalone function.
+
+A static method takes input arguments and returns a result based only on those input values and nothing else.
+
+Not needing any field values makes it easy for a method to be attached to the class definition and not an 
+individual object since it doesn't care about the values of any of the fields.
+
+However, a static method can still access static fields, that's because static fields also belong to the class and are shared 
+amongst all objects of that class.
+
+Here's an example of a calculator implementation with some static methods:
+
+*/
+public class Calculator {
+
+    public static int add(int a, int b) {
+        return a + b;
+    }
+
+    public static int subtract(int a, int b) {
+        return a - b;
+    }
+
+}
+
+/*Since both add and subtract don't need any object-specific values, 
+they can be declared static as seen above and hence you can call them directly 
+using the class name Calculator without the need to create an object variable at all:
+*/
+
+Calculator.add(5,10);
